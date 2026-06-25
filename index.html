@@ -1202,57 +1202,6 @@ body {
   font-size: 15px;
 }
 
-/* ===== 泳道表格 ===== */
-.swimlane-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 13px;
-  table-layout: fixed;
-}
-.sl-head {
-  background: var(--gray-800);
-  color: var(--white);
-  font-weight: 600;
-  padding: 10px 12px;
-  text-align: center;
-  border: 1px solid var(--gray-300);
-}
-.sl-cell {
-  padding: 10px 12px;
-  border: 1px solid var(--gray-200);
-  vertical-align: middle;
-}
-.sl-node {
-  display: inline-block;
-  padding: 5px 10px;
-  border-radius: var(--radius-sm);
-  background: var(--white);
-  border: 1px solid var(--gray-300);
-  color: var(--gray-700);
-  font-size: 12px;
-  text-align: center;
-  white-space: nowrap;
-}
-.sl-start {
-  background: var(--primary-light);
-  border-color: var(--primary);
-  color: var(--primary);
-  font-weight: 600;
-}
-.sl-end {
-  background: var(--success-light);
-  border-color: var(--success);
-  color: var(--success);
-  font-weight: 600;
-}
-.sl-sys {
-  background: var(--gray-50);
-  border-style: dashed;
-  border-color: var(--gray-400);
-  color: var(--gray-500);
-  font-style: italic;
-}
-
 /* ===== 状态流转标签 ===== */
 .status-flow-tag {
   display: inline-block;
@@ -1381,10 +1330,6 @@ body {
       <div class="nav-sub-item" data-page="doc-permission" onclick="switchPage('doc-permission', this)">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
         <span>角色权限矩阵</span>
-      </div>
-      <div class="nav-sub-item" data-page="doc-flowchart" onclick="switchPage('doc-flowchart', this)">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-        <span>业务流程图</span>
       </div>
     </nav>
     <div class="sidebar-footer">
@@ -2595,136 +2540,6 @@ body {
     <iframe src="https://cloud.dify.ai/explore/installed/7c7b683d-47b4-4640-a45c-6ba20e281418" allow="microphone"></iframe>
   </div>
 </div>
-
-    <!-- ========== 9. 业务流程图 ========== -->
-    <div id="page-doc-flowchart" class="page-content">
-      <div class="page-header">
-        <h1 class="page-title">业务流程图</h1>
-        <p class="page-desc">核心业务：学员从注册到内推成功的完整流程</p>
-      </div>
-
-      <!-- 内推服务主流程 - 标准泳道图 -->
-      <div class="card" style="margin-top:20px;padding:0;overflow:hidden;">
-        <div class="card-header" style="padding:16px 24px;"><span class="card-title">内推服务主流程</span></div>
-        <div style="overflow-x:auto;">
-          <table class="swimlane-table">
-            <thead>
-              <tr>
-                <th class="sl-head">学员</th>
-                <th class="sl-head">助教</th>
-                <th class="sl-head">系统</th>
-                <th class="sl-head">企业</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="sl-cell"><div class="sl-node sl-start">注册签约</div></td>
-                <td class="sl-cell"><div class="sl-node">创建学员档案</div></td>
-                <td class="sl-cell"><div class="sl-node sl-sys">分配助教</div></td>
-                <td class="sl-cell" rowspan="6" style="background:var(--gray-50);vertical-align:middle;">
-                  <div style="text-align:center;color:var(--gray-400);font-size:12px;">等待阶段</div>
-                </td>
-              </tr>
-              <tr>
-                <td class="sl-cell"><div class="sl-node">完善简历</div></td>
-                <td class="sl-cell"><div class="sl-node">简历优化指导</div></td>
-                <td class="sl-cell"><div class="sl-node sl-sys">简历状态更新</div></td>
-              </tr>
-              <tr>
-                <td class="sl-cell"><div class="sl-node">确认目标岗位</div></td>
-                <td class="sl-cell"><div class="sl-node">发起岗位匹配</div></td>
-                <td class="sl-cell"><div class="sl-node sl-sys">AI生成匹配报告</div></td>
-              </tr>
-              <tr>
-                <td class="sl-cell"><div class="sl-node">确认内推</div></td>
-                <td class="sl-cell"><div class="sl-node">发起内推</div></td>
-                <td class="sl-cell"><div class="sl-node sl-sys">创建内推订单</div></td>
-              </tr>
-              <tr>
-                <td class="sl-cell"><div class="sl-node">参加面试</div></td>
-                <td class="sl-cell"><div class="sl-node">面试跟进</div></td>
-                <td class="sl-cell"><div class="sl-node sl-sys">订单状态流转</div></td>
-                <td class="sl-cell"><div class="sl-node">面试评估</div></td>
-              </tr>
-              <tr>
-                <td class="sl-cell"><div class="sl-node sl-end">入职成功</div></td>
-                <td class="sl-cell"><div class="sl-node">归档关闭</div></td>
-                <td class="sl-cell"><div class="sl-node sl-sys">订单关闭</div></td>
-                <td class="sl-cell"><div class="sl-node">发放offer</div></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- 辅导服务流程 -->
-      <div class="card" style="margin-top:16px;padding:0;overflow:hidden;">
-        <div class="card-header" style="padding:16px 24px;"><span class="card-title">辅导服务流程</span></div>
-        <div style="overflow-x:auto;">
-          <table class="swimlane-table">
-            <thead>
-              <tr>
-                <th class="sl-head">学员</th>
-                <th class="sl-head">助教</th>
-                <th class="sl-head">系统</th>
-                <th class="sl-head">导师</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="sl-cell"><div class="sl-node">提交辅导需求</div></td>
-                <td class="sl-cell"><div class="sl-node">审核需求</div></td>
-                <td class="sl-cell"><div class="sl-node sl-sys">创建辅导工单</div></td>
-                <td class="sl-cell" rowspan="4" style="background:var(--gray-50);vertical-align:middle;">
-                  <div style="text-align:center;color:var(--gray-400);font-size:12px;">待分配</div>
-                </td>
-              </tr>
-              <tr>
-                <td class="sl-cell"><div class="sl-node">确认导师</div></td>
-                <td class="sl-cell"><div class="sl-node">分配导师</div></td>
-                <td class="sl-cell"><div class="sl-node sl-sys">工单状态→已分配</div></td>
-              </tr>
-              <tr>
-                <td class="sl-cell"><div class="sl-node">确认约课时间</div></td>
-                <td class="sl-cell"><div class="sl-node">协调时间</div></td>
-                <td class="sl-cell"><div class="sl-node sl-sys">工单状态→进行中</div></td>
-                <td class="sl-cell"><div class="sl-node">确认约课</div></td>
-              </tr>
-              <tr>
-                <td class="sl-cell"><div class="sl-node">参加辅导</div></td>
-                <td class="sl-cell"><div class="sl-node">记录反馈</div></td>
-                <td class="sl-cell"><div class="sl-node sl-sys">工单状态→已完成</div></td>
-                <td class="sl-cell"><div class="sl-node">执行辅导</div></td>
-              </tr>
-              <tr>
-                <td class="sl-cell"><div class="sl-node sl-end">完成辅导</div></td>
-                <td class="sl-cell"><div class="sl-node">满意度回访</div></td>
-                <td class="sl-cell"><div class="sl-node sl-sys">归档</div></td>
-                <td class="sl-cell"><div class="sl-node">提交辅导报告</div></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- 异常流程 -->
-      <div class="card" style="margin-top:16px;padding:0;overflow:hidden;">
-        <div class="card-header" style="padding:16px 24px;"><span class="card-title">异常流程说明</span></div>
-        <div class="card-body" style="padding:20px 24px;">
-          <table class="doc-table" style="max-width:700px;">
-            <thead>
-              <tr><th>异常场景</th><th>触发条件</th><th>处理方式</th></tr>
-            </thead>
-            <tbody>
-              <tr><td>简历不匹配</td><td>AI匹配评分 < 60分</td><td>助教建议学员调整方向或暂不内推</td></tr>
-              <tr><td>内推被拒</td><td>企业反馈不合适</td><td>助教匹配备选岗位，重新发起</td></tr>
-              <tr><td>导师拒绝</td><td>导师时间冲突</td><td>系统自动回到"待分配"状态</td></tr>
-              <tr><td>学员放弃</td><td>学员主动终止服务</td><td>订单/工单标记"已结束"，归档</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
 
 <script>
 /**
