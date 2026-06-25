@@ -1,0 +1,1991 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>环球联才服务内部管理平台</title>
+<style>
+/* ===== CSS变量 ===== */
+:root {
+  --primary: #2563EB;
+  --primary-light: #E6F0FF;
+  --primary-dark: #1D4ED8;
+  --primary-gradient: linear-gradient(135deg, #4A6CF7, #6B7BFF);
+  --success: #22C55E;
+  --success-light: #DCFCE7;
+  --warning: #F97316;
+  --warning-light: #FFF7ED;
+  --danger: #EF4444;
+  --danger-light: #FEE2E2;
+  --gray-50: #F8FAFC;
+  --gray-100: #F1F5F9;
+  --gray-200: #E2E8F0;
+  --gray-300: #CBD5E1;
+  --gray-400: #94A3B8;
+  --gray-500: #6B7280;
+  --gray-600: #4B5563;
+  --gray-700: #374151;
+  --gray-800: #1F2937;
+  --gray-900: #111827;
+  --white: #FFFFFF;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+  --shadow-md: 0 2px 8px rgba(0,0,0,0.08);
+  --shadow-lg: 0 4px 16px rgba(0,0,0,0.12);
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --sidebar-width: 220px;
+  --font-family: 'PingFang SC', 'Microsoft YaHei', system-ui, -apple-system, sans-serif;
+}
+
+/* ===== 基础样式重置 ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-family);
+  font-size: 14px;
+  color: var(--gray-700);
+  background-color: var(--gray-100);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ===== 登录页 ===== */
+.login-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f0f4ff 0%, #e8eeff 50%, #f0f0ff 100%);
+}
+
+.login-card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  padding: 48px 40px;
+  width: 420px;
+  text-align: center;
+}
+
+.login-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.login-logo-icon {
+  width: 44px;
+  height: 44px;
+  background: var(--primary);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--white);
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.login-logo-text {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--gray-800);
+  letter-spacing: 1px;
+}
+
+.login-subtitle {
+  color: var(--gray-500);
+  font-size: 13px;
+  margin-bottom: 36px;
+}
+
+.login-form .form-group {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.login-form label {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--gray-600);
+  margin-bottom: 6px;
+}
+
+.login-form input {
+  width: 100%;
+  height: 44px;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-md);
+  padding: 0 14px;
+  font-size: 14px;
+  font-family: var(--font-family);
+  color: var(--gray-700);
+  background: var(--gray-50);
+  transition: all 0.2s;
+  outline: none;
+}
+
+.login-form input:focus {
+  border-color: var(--primary);
+  background: var(--white);
+  box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+}
+
+.login-form input::placeholder {
+  color: var(--gray-400);
+}
+
+.login-btn {
+  width: 100%;
+  height: 44px;
+  background: var(--primary);
+  color: var(--white);
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: 15px;
+  font-weight: 500;
+  font-family: var(--font-family);
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-top: 8px;
+}
+
+.login-btn:hover {
+  background: var(--primary-dark);
+}
+
+/* ===== 主界面布局 ===== */
+.main-app {
+  display: none;
+  min-height: 100vh;
+}
+
+/* ===== 左侧导航栏 ===== */
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: var(--sidebar-width);
+  background: var(--white);
+  border-right: 1px solid var(--gray-200);
+  display: flex;
+  flex-direction: column;
+  z-index: 100;
+  box-shadow: 2px 0 8px rgba(0,0,0,0.04);
+}
+
+.sidebar-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 20px 20px 24px;
+  border-bottom: 1px solid var(--gray-100);
+}
+
+.sidebar-logo-icon {
+  width: 36px;
+  height: 36px;
+  background: var(--primary);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--white);
+  font-size: 16px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.sidebar-logo-text {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--gray-800);
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+.sidebar-nav {
+  flex: 1;
+  padding: 12px 0;
+  overflow-y: auto;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 20px;
+  cursor: pointer;
+  color: var(--gray-600);
+  font-size: 14px;
+  transition: all 0.15s;
+  border-left: 4px solid transparent;
+  margin: 2px 0;
+  user-select: none;
+}
+
+.nav-item:hover {
+  background: var(--gray-50);
+  color: var(--gray-800);
+}
+
+.nav-item.active {
+  background: var(--primary-light);
+  color: var(--primary);
+  border-left-color: var(--primary);
+  font-weight: 500;
+}
+
+.nav-item svg {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.sidebar-footer {
+  padding: 16px 20px;
+  border-top: 1px solid var(--gray-100);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sidebar-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--primary-light);
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.sidebar-user-info {
+  overflow: hidden;
+}
+
+.sidebar-user-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--gray-800);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sidebar-user-role {
+  font-size: 12px;
+  color: var(--gray-400);
+  white-space: nowrap;
+}
+
+/* ===== 右侧内容区 ===== */
+.content-area {
+  margin-left: var(--sidebar-width);
+  min-height: 100vh;
+  background: var(--gray-100);
+}
+
+/* ===== 顶部栏 ===== */
+.page-header {
+  background: var(--white);
+  padding: 16px 28px;
+  border-bottom: 1px solid var(--gray-200);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.page-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--gray-800);
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.online-status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--gray-500);
+}
+
+.online-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--success);
+  border-radius: 50%;
+}
+
+.user-badge {
+  font-size: 13px;
+  color: var(--gray-600);
+  background: var(--gray-50);
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+
+/* ===== 页面内容容器 ===== */
+.page-content {
+  padding: 24px 28px;
+  display: none;
+}
+
+.page-content.active {
+  display: block;
+}
+
+/* ===== 数据概览卡片 ===== */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  margin-bottom: 24px;
+}
+
+.stat-card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--gray-100);
+  transition: box-shadow 0.2s;
+}
+
+.stat-card:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.stat-card-label {
+  font-size: 13px;
+  color: var(--gray-500);
+  margin-bottom: 8px;
+}
+
+.stat-card-value {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--gray-800);
+}
+
+.stat-card-value.blue { color: var(--primary); }
+.stat-card-value.green { color: var(--success); }
+.stat-card-value.orange { color: var(--warning); }
+.stat-card-value.red { color: var(--danger); }
+
+.stat-card-unit {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--gray-400);
+  margin-left: 4px;
+}
+
+/* ===== 工作台布局 ===== */
+.dashboard-main {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 20px;
+}
+
+/* ===== 卡片通用样式 ===== */
+.card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--gray-100);
+  overflow: hidden;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--gray-100);
+}
+
+.card-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--gray-800);
+}
+
+.card-body {
+  padding: 0;
+}
+
+/* ===== 表格通用样式 ===== */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.data-table th {
+  text-align: left;
+  padding: 12px 16px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--gray-500);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  background: var(--gray-50);
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.data-table td {
+  padding: 12px 16px;
+  font-size: 13px;
+  color: var(--gray-700);
+  border-bottom: 1px solid var(--gray-100);
+}
+
+.data-table tbody tr {
+  transition: background 0.15s;
+}
+
+.data-table tbody tr:hover {
+  background: var(--gray-50);
+}
+
+.data-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* ===== 状态标签 ===== */
+.status-tag {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.status-tag.blue {
+  background: var(--primary-light);
+  color: var(--primary);
+}
+
+.status-tag.green {
+  background: var(--success-light);
+  color: #16A34A;
+}
+
+.status-tag.orange {
+  background: var(--warning-light);
+  color: #EA580C;
+}
+
+.status-tag.red {
+  background: var(--danger-light);
+  color: #DC2626;
+}
+
+.status-tag.gray {
+  background: var(--gray-100);
+  color: var(--gray-500);
+}
+
+/* ===== 右侧面板 ===== */
+.dashboard-sidebar .card {
+  margin-bottom: 16px;
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--gray-100);
+}
+
+.stat-item:last-child {
+  border-bottom: none;
+}
+
+.stat-item-label {
+  font-size: 13px;
+  color: var(--gray-600);
+}
+
+.stat-item-value {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--gray-800);
+}
+
+.stat-item-value.highlight {
+  color: var(--warning);
+  font-weight: 700;
+}
+
+/* ===== 工作贴士卡片 ===== */
+.tip-card {
+  background: var(--primary-gradient);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  color: var(--white);
+}
+
+.tip-card-title {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.tip-card-content {
+  font-size: 13px;
+  opacity: 0.92;
+  line-height: 1.6;
+}
+
+/* ===== 搜索和操作栏 ===== */
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+  gap: 12px;
+}
+
+.search-box {
+  position: relative;
+  flex: 1;
+  max-width: 360px;
+}
+
+.search-box input {
+  width: 100%;
+  height: 38px;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-md);
+  padding: 0 14px 0 38px;
+  font-size: 13px;
+  font-family: var(--font-family);
+  color: var(--gray-700);
+  background: var(--white);
+  outline: none;
+  transition: all 0.2s;
+}
+
+.search-box input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+}
+
+.search-box svg {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  color: var(--gray-400);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: 13px;
+  font-weight: 500;
+  font-family: var(--font-family);
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: var(--white);
+}
+
+.btn-primary:hover {
+  background: var(--primary-dark);
+}
+
+.btn-outline {
+  background: var(--white);
+  color: var(--primary);
+  border: 1px solid var(--primary);
+}
+
+.btn-outline:hover {
+  background: var(--primary-light);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--primary);
+  padding: 4px 8px;
+}
+
+.btn-ghost:hover {
+  background: var(--primary-light);
+}
+
+.btn-sm {
+  padding: 5px 12px;
+  font-size: 12px;
+}
+
+/* ===== 操作列 ===== */
+.action-group {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* ===== Tab切换 ===== */
+.tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 2px solid var(--gray-200);
+  margin-bottom: 20px;
+}
+
+.tab-item {
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--gray-500);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  transition: all 0.2s;
+  user-select: none;
+}
+
+.tab-item:hover {
+  color: var(--gray-700);
+}
+
+.tab-item.active {
+  color: var(--primary);
+  border-bottom-color: var(--primary);
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+/* ===== 岗位匹配 - 双列布局 ===== */
+.match-upload-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  margin-bottom: 24px;
+}
+
+.upload-card .card-body {
+  padding: 20px;
+}
+
+.upload-card .card-title {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.upload-area {
+  border: 2px dashed var(--gray-200);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  text-align: center;
+  margin-top: 14px;
+  transition: all 0.2s;
+  background: var(--gray-50);
+}
+
+.upload-area:hover {
+  border-color: var(--primary);
+  background: var(--primary-light);
+}
+
+.upload-area.has-file {
+  border-color: var(--success);
+  background: var(--success-light);
+  border-style: solid;
+}
+
+.upload-icon {
+  font-size: 32px;
+  color: var(--primary);
+  margin-bottom: 8px;
+}
+
+.upload-text {
+  font-size: 13px;
+  color: var(--gray-500);
+}
+
+.upload-filename {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--success);
+  font-weight: 500;
+}
+
+.upload-filename svg {
+  width: 18px;
+  height: 18px;
+}
+
+.jd-input-group {
+  margin-top: 14px;
+}
+
+.jd-input-group label {
+  display: block;
+  font-size: 12px;
+  color: var(--gray-500);
+  margin-bottom: 6px;
+}
+
+.jd-select,
+.jd-textarea {
+  width: 100%;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-family: var(--font-family);
+  color: var(--gray-700);
+  background: var(--white);
+  outline: none;
+  transition: all 0.2s;
+}
+
+.jd-select {
+  height: 36px;
+  padding: 0 12px;
+  appearance: auto;
+}
+
+.jd-textarea {
+  height: 100px;
+  padding: 10px 12px;
+  resize: vertical;
+}
+
+.jd-select:focus,
+.jd-textarea:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+}
+
+/* AI分析按钮 */
+.ai-analyze-bar {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.btn-ai-analyze {
+  background: var(--primary-gradient);
+  color: var(--white);
+  border: none;
+  border-radius: var(--radius-md);
+  padding: 12px 36px;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: var(--font-family);
+  cursor: pointer;
+  transition: all 0.25s;
+  box-shadow: 0 4px 12px rgba(74,108,247,0.35);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-ai-analyze:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(74,108,247,0.45);
+}
+
+.btn-ai-analyze:active {
+  transform: translateY(0);
+}
+
+/* ===== 匹配分数 ===== */
+.match-score {
+  font-weight: 700;
+}
+
+.match-score.high {
+  color: var(--success);
+}
+
+.match-score.medium {
+  color: var(--warning);
+}
+
+.match-score.low {
+  color: var(--gray-500);
+}
+
+/* ===== 风险点标签 ===== */
+.risk-tag {
+  font-size: 12px;
+  color: var(--gray-500);
+}
+
+.risk-tag.has-risk {
+  color: var(--warning);
+  font-weight: 500;
+}
+
+/* ===== AI分析弹窗 ===== */
+.ai-panel-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.35);
+  z-index: 999;
+  display: none;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.ai-panel-overlay.show {
+  display: block;
+  opacity: 1;
+}
+
+.ai-panel {
+  position: fixed;
+  top: 0;
+  right: -520px;
+  width: 520px;
+  height: 100vh;
+  background: var(--white);
+  box-shadow: -4px 0 24px rgba(0,0,0,0.15);
+  z-index: 1000;
+  transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+}
+
+.ai-panel.show {
+  right: 0;
+}
+
+.ai-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 24px;
+  border-bottom: 1px solid var(--gray-200);
+  flex-shrink: 0;
+}
+
+.ai-panel-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--gray-800);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ai-panel-close {
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: var(--gray-100);
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+  color: var(--gray-500);
+}
+
+.ai-panel-close:hover {
+  background: var(--gray-200);
+  color: var(--gray-700);
+}
+
+.ai-panel-body {
+  flex: 1;
+  padding: 0;
+  overflow: hidden;
+}
+
+.ai-panel-body iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.ai-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: var(--gray-400);
+  gap: 12px;
+}
+
+.ai-placeholder svg {
+  width: 48px;
+  height: 48px;
+  opacity: 0.5;
+}
+
+.ai-placeholder p {
+  font-size: 14px;
+}
+
+/* ===== 内推支持标签 ===== */
+.support-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+}
+
+.support-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+/* ===== 滚动条美化 ===== */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--gray-300);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--gray-400);
+}
+
+/* ===== 通用过渡 ===== */
+.fade-in {
+  animation: fadeIn 0.25s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== 表格容器滚动 ===== */
+.table-wrapper {
+  overflow-x: auto;
+}
+</style>
+</head>
+<body>
+
+<!-- ===== 登录页 ===== -->
+<div id="loginPage" class="login-page">
+  <div class="login-card">
+    <div class="login-logo">
+      <div class="login-logo-icon">G</div>
+      <div class="login-logo-text">环球联才</div>
+    </div>
+    <p class="login-subtitle">服务内部管理平台</p>
+    <form class="login-form" onsubmit="handleLogin(event)">
+      <div class="form-group">
+        <label>用户名</label>
+        <input type="text" placeholder="请输入用户名" value="Ivy">
+      </div>
+      <div class="form-group">
+        <label>密码</label>
+        <input type="password" placeholder="请输入密码" value="********">
+      </div>
+      <button type="submit" class="login-btn">登 录</button>
+    </form>
+  </div>
+</div>
+
+<!-- ===== 主界面 ===== -->
+<div id="mainApp" class="main-app">
+
+  <!-- 左侧导航栏 -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="sidebar-logo-icon">G</div>
+      <div class="sidebar-logo-text">环球联才</div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-item active" data-page="dashboard" onclick="switchPage('dashboard', this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        <span>工作台</span>
+      </div>
+      <div class="nav-item" data-page="students" onclick="switchPage('students', this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        <span>学员管理</span>
+      </div>
+      <div class="nav-item" data-page="matching" onclick="switchPage('matching', this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+        <span>岗位匹配</span>
+      </div>
+      <div class="nav-item" data-page="orders" onclick="switchPage('orders', this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        <span>订单台账</span>
+      </div>
+      <div class="nav-item" data-page="resources" onclick="switchPage('resources', this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+        <span>资源库</span>
+      </div>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="sidebar-avatar">I</div>
+      <div class="sidebar-user-info">
+        <div class="sidebar-user-name">Ivy</div>
+        <div class="sidebar-user-role">高级助教</div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- 右侧内容区 -->
+  <main class="content-area">
+
+    <!-- ========== 1. 工作台 ========== -->
+    <div id="page-dashboard" class="page-content active">
+      <div class="page-header">
+        <h1 class="page-title">助教工作台</h1>
+        <div class="header-right">
+          <div class="online-status">
+            <span class="online-dot"></span>
+            <span>在线</span>
+          </div>
+          <div class="user-badge">助教：Ivy</div>
+        </div>
+      </div>
+      <!-- 数据概览 -->
+      <div class="stats-grid" style="margin-top:24px;">
+        <div class="stat-card">
+          <div class="stat-card-label">负责学员数</div>
+          <div class="stat-card-value blue">128<span class="stat-card-unit">人</span></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-label">待匹配岗位</div>
+          <div class="stat-card-value orange">23<span class="stat-card-unit">个</span></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-label">待跟进内推订单</div>
+          <div class="stat-card-value red">15<span class="stat-card-unit">个</span></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-label">待跟进辅导工单</div>
+          <div class="stat-card-value">9<span class="stat-card-unit">个</span></div>
+        </div>
+      </div>
+      <!-- 主内容区 -->
+      <div class="dashboard-main">
+        <!-- 左侧：近期待办 -->
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">近期待办</span>
+            <button class="btn btn-ghost btn-sm">查看全部</button>
+          </div>
+          <div class="card-body">
+            <div class="table-wrapper">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>任务类型</th>
+                    <th>学员</th>
+                    <th>关联岗位/服务</th>
+                    <th>截止时间</th>
+                    <th>状态</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>内推确认</td>
+                    <td>Zoe</td>
+                    <td>前端开发(A厂)</td>
+                    <td>2026-06-20</td>
+                    <td><span class="status-tag orange">待跟进</span></td>
+                  </tr>
+                  <tr>
+                    <td>简历复核</td>
+                    <td>Tommy</td>
+                    <td>Java开发(B厂)</td>
+                    <td>2026-06-19</td>
+                    <td><span class="status-tag blue">进行中</span></td>
+                  </tr>
+                  <tr>
+                    <td>辅导安排</td>
+                    <td>Cindy</td>
+                    <td>数据分析(C厂)</td>
+                    <td>2026-06-22</td>
+                    <td><span class="status-tag red">待处理</span></td>
+                  </tr>
+                  <tr>
+                    <td>岗位匹配</td>
+                    <td>David</td>
+                    <td>产品经理(D厂)</td>
+                    <td>2026-06-18</td>
+                    <td><span class="status-tag green">已完成</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <!-- 右侧面板 -->
+        <div class="dashboard-sidebar">
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">本周概览</span>
+            </div>
+            <div class="card-body">
+              <div class="stat-item">
+                <span class="stat-item-label">本周已内推学员</span>
+                <span class="stat-item-value">12人</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-item-label">待确认内推</span>
+                <span class="stat-item-value highlight">5人</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-item-label">待提交导师服务需求</span>
+                <span class="stat-item-value">3个</span>
+              </div>
+            </div>
+          </div>
+          <div class="tip-card">
+            <div class="tip-card-title">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+              工作贴士
+            </div>
+            <div class="tip-card-content">
+              有3名学员简历已超过48小时未更新，请及时跟进提醒。
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== 2. 学员管理 ========== -->
+    <div id="page-students" class="page-content">
+      <div class="page-header">
+        <h1 class="page-title">学员管理</h1>
+      </div>
+      <!-- 搜索与操作栏 -->
+      <div class="toolbar" style="margin-top:24px;">
+        <div class="search-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" placeholder="搜索学员姓名、岗位...">
+        </div>
+        <button class="btn btn-primary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          新建学员
+        </button>
+      </div>
+      <!-- 学员表格 -->
+      <div class="card">
+        <div class="card-body">
+          <div class="table-wrapper">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>学员姓名</th>
+                  <th>目标岗位</th>
+                  <th>地区</th>
+                  <th>简历状态</th>
+                  <th>最近服务记录</th>
+                  <th>当前进度</th>
+                  <th>操作</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Amy</strong></td>
+                  <td>前端开发</td>
+                  <td>San Francisco</td>
+                  <td><span class="status-tag green">已完善</span></td>
+                  <td>简历优化(06-18)</td>
+                  <td><span class="status-tag blue">待内推</span></td>
+                  <td>
+                    <div class="action-group">
+                      <button class="btn btn-ghost btn-sm">查看详情</button>
+                      <button class="btn btn-primary btn-sm">发起匹配</button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td><strong>Bob</strong></td>
+                  <td>Java开发</td>
+                  <td>Toronto</td>
+                  <td><span class="status-tag orange">待完善</span></td>
+                  <td>职业咨询(06-15)</td>
+                  <td><span class="status-tag gray">待定岗</span></td>
+                  <td>
+                    <div class="action-group">
+                      <button class="btn btn-ghost btn-sm">查看详情</button>
+                      <button class="btn btn-outline btn-sm">提交服务需求</button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td><strong>Cindy</strong></td>
+                  <td>数据分析</td>
+                  <td>New York</td>
+                  <td><span class="status-tag green">已完善</span></td>
+                  <td>模拟面试(06-17)</td>
+                  <td><span class="status-tag orange">面试中</span></td>
+                  <td>
+                    <div class="action-group">
+                      <button class="btn btn-ghost btn-sm">查看详情</button>
+                      <button class="btn btn-outline btn-sm">查看订单</button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td><strong>David</strong></td>
+                  <td>产品经理</td>
+                  <td>Seattle</td>
+                  <td><span class="status-tag green">已完善</span></td>
+                  <td>简历投递(06-16)</td>
+                  <td><span class="status-tag green">已内推</span></td>
+                  <td>
+                    <div class="action-group">
+                      <button class="btn btn-ghost btn-sm">查看详情</button>
+                      <button class="btn btn-primary btn-sm">发起匹配</button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td><strong>Emma</strong></td>
+                  <td>UI设计</td>
+                  <td>Chicago</td>
+                  <td><span class="status-tag orange">待完善</span></td>
+                  <td>初次沟通(06-14)</td>
+                  <td><span class="status-tag gray">待定岗</span></td>
+                  <td>
+                    <div class="action-group">
+                      <button class="btn btn-ghost btn-sm">查看详情</button>
+                      <button class="btn btn-outline btn-sm">提交服务需求</button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== 3. 岗位匹配 ========== -->
+    <div id="page-matching" class="page-content">
+      <div class="page-header">
+        <h1 class="page-title">简历 & JD智能匹配</h1>
+      </div>
+      <!-- AI匹配说明卡片 -->
+      <div class="match-upload-grid" style="margin-top:24px;">
+        <div class="card upload-card" style="grid-column: span 2;">
+          <div class="card-header">
+            <span class="card-title" style="display:flex;align-items:center;gap:8px;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+              AI智能匹配功能
+            </span>
+          </div>
+          <div class="card-body" style="padding:24px 32px;">
+            <div style="display:flex;align-items:flex-start;gap:20px;">
+              <div style="flex:1;">
+                <h4 style="margin-bottom:8px;color:var(--gray-800);">功能说明</h4>
+                <p style="color:var(--gray-600);line-height:1.8;">
+                  基于大语言模型实现的JD-简历智能匹配分析。将候选人简历与目标岗位JD发送给AI助手，自动分析技能匹配度、经验背景、学历要求等维度，输出匹配评分、优势亮点、风险点及内推建议。
+                </p>
+                <div style="margin-top:16px;">
+                  <h4 style="margin-bottom:8px;color:var(--gray-800);">使用步骤</h4>
+                  <ol style="color:var(--gray-600);line-height:2;padding-left:20px;">
+                    <li>点击下方 <strong>「AI智能分析」</strong> 按钮，打开AI对话窗口</li>
+                    <li>在对话中粘贴目标岗位的 <strong>JD描述文本</strong></li>
+                    <li>再粘贴 <strong>候选人简历内容</strong></li>
+                    <li>AI将自动输出匹配度评分、优势、风险点和内推建议</li>
+                  </ol>
+                </div>
+              </div>
+              <div style="flex:1;">
+                <h4 style="margin-bottom:8px;color:var(--gray-800);">输出示例</h4>
+                <div style="background:var(--gray-50);border-radius:var(--radius-md);padding:16px;font-size:13px;line-height:1.8;color:var(--gray-600);">
+                  <p><strong>📊 匹配度评分：85/100</strong></p>
+                  <p><strong>✅ 匹配亮点</strong></p>
+                  <p style="padding-left:12px;">• 3年前端开发经验，技术栈匹配度高</p>
+                  <p style="padding-left:12px;">• 有大型项目经验，具备团队协作能力</p>
+                  <p><strong>⚠️ 风险点</strong></p>
+                  <p style="padding-left:12px;">• 学历为本科，岗位偏好硕士</p>
+                  <p><strong>🎯 内推建议：推荐内推</strong></p>
+                  <p><strong>📝 简要理由</strong></p>
+                  <p style="padding-left:12px;">候选人整体匹配度较高，核心技术能力符合岗位要求，学历略有差距但不影响推荐。</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- AI分析按钮 -->
+      <div class="ai-analyze-bar">
+        <button class="btn-ai-analyze" onclick="window.open('https://cloud.dify.ai/explore/installed/7c7b683d-47b4-4640-a45c-6ba20e281418', '_blank')">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          AI智能分析
+        </button>
+      </div>
+      <!-- 数据概览 -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-card-label">匹配岗位数</div>
+          <div class="stat-card-value">36<span class="stat-card-unit">个</span></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-label">适合内推数</div>
+          <div class="stat-card-value green">18<span class="stat-card-unit">个</span></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-label">暂不推荐数</div>
+          <div class="stat-card-value orange">12<span class="stat-card-unit">个</span></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-label">平均匹配分</div>
+          <div class="stat-card-value blue">82<span class="stat-card-unit">分</span></div>
+        </div>
+      </div>
+      <!-- 匹配结果表格 -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">匹配结果</span>
+        </div>
+        <div class="card-body">
+          <div class="table-wrapper">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>岗位名称</th>
+                  <th>公司</th>
+                  <th>地区</th>
+                  <th>匹配分数</th>
+                  <th>风险点</th>
+                  <th>内推支持</th>
+                  <th>岗位状态</th>
+                  <th>操作</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>高级前端工程师</strong></td>
+                  <td>A厂</td>
+                  <td>San Francisco</td>
+                  <td><span class="match-score high">92</span></td>
+                  <td class="risk-tag">暂无</td>
+                  <td><span class="support-tag"><span class="support-dot" style="background:var(--success)"></span><span style="color:var(--success)">是</span></span></td>
+                  <td><span class="status-tag green">招聘中</span></td>
+                  <td>
+                    <div class="action-group">
+                      <button class="btn btn-ghost btn-sm">查看详情</button>
+                      <button class="btn btn-primary btn-sm">发起内推</button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td><strong>Java后端开发</strong></td>
+                  <td>B厂</td>
+                  <td>New York</td>
+                  <td><span class="match-score medium">78</span></td>
+                  <td class="risk-tag has-risk">学历要求不符</td>
+                  <td><span class="support-tag"><span class="support-dot" style="background:var(--gray-400)"></span><span style="color:var(--gray-400)">否</span></span></td>
+                  <td><span class="status-tag green">招聘中</span></td>
+                  <td>
+                    <div class="action-group">
+                      <button class="btn btn-ghost btn-sm">查看详情</button>
+                      <button class="btn btn-outline btn-sm">加入备选</button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td><strong>数据分析师</strong></td>
+                  <td>C厂</td>
+                  <td>Chicago</td>
+                  <td><span class="match-score high">85</span></td>
+                  <td class="risk-tag">行业经验不足</td>
+                  <td><span class="support-tag"><span class="support-dot" style="background:var(--success)"></span><span style="color:var(--success)">是</span></span></td>
+                  <td><span class="status-tag red">急招</span></td>
+                  <td>
+                    <div class="action-group">
+                      <button class="btn btn-ghost btn-sm">查看详情</button>
+                      <button class="btn btn-primary btn-sm">发起内推</button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td><strong>产品经理</strong></td>
+                  <td>D厂</td>
+                  <td>Seattle</td>
+                  <td><span class="match-score low">65</span></td>
+                  <td class="risk-tag">暂无</td>
+                  <td><span class="support-tag"><span class="support-dot" style="background:var(--gray-400)"></span><span style="color:var(--gray-400)">否</span></span></td>
+                  <td><span class="status-tag gray">暂停</span></td>
+                  <td>
+                    <div class="action-group">
+                      <button class="btn btn-ghost btn-sm">查看详情</button>
+                      <button class="btn btn-outline btn-sm">标记不合适</button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== 4. 订单台账 ========== -->
+    <div id="page-orders" class="page-content">
+      <div class="page-header">
+        <h1 class="page-title">订单台账</h1>
+      </div>
+      <!-- Tab切换 -->
+      <div class="tabs" style="margin-top:24px;">
+        <div class="tab-item active" onclick="switchTab(this, 'orders-referral')">内推订单</div>
+        <div class="tab-item" onclick="switchTab(this, 'orders-tutoring')">辅导工单</div>
+      </div>
+      <!-- 内推订单 -->
+      <div id="orders-referral" class="tab-content active">
+        <div class="card">
+          <div class="card-body">
+            <div class="table-wrapper">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>订单编号</th>
+                    <th>学员</th>
+                    <th>目标岗位</th>
+                    <th>企业</th>
+                    <th>状态</th>
+                    <th>最近更新</th>
+                    <th>操作</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>ORD-001</td>
+                    <td>Amy</td>
+                    <td>前端开发</td>
+                    <td>A厂</td>
+                    <td><span class="status-tag orange">待确认</span></td>
+                    <td>2026-06-20</td>
+                    <td><div class="action-group"><button class="btn btn-primary btn-sm">更新进度</button></div></td>
+                  </tr>
+                  <tr>
+                    <td>ORD-002</td>
+                    <td>Bob</td>
+                    <td>Java后端</td>
+                    <td>B厂</td>
+                    <td><span class="status-tag blue">进行中</span></td>
+                    <td>2026-06-19</td>
+                    <td>
+                      <div class="action-group">
+                        <button class="btn btn-ghost btn-sm">查看详情</button>
+                        <button class="btn btn-primary btn-sm">更新进度</button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>ORD-003</td>
+                    <td>Cindy</td>
+                    <td>数据分析</td>
+                    <td>C厂</td>
+                    <td><span class="status-tag green">已完成</span></td>
+                    <td>2026-06-18</td>
+                    <td><div class="action-group"><button class="btn btn-ghost btn-sm">查看详情</button></div></td>
+                  </tr>
+                  <tr>
+                    <td>ORD-004</td>
+                    <td>David</td>
+                    <td>产品经理</td>
+                    <td>D厂</td>
+                    <td><span class="status-tag blue">进行中</span></td>
+                    <td>2026-06-17</td>
+                    <td>
+                      <div class="action-group">
+                        <button class="btn btn-ghost btn-sm">查看详情</button>
+                        <button class="btn btn-primary btn-sm">更新进度</button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>ORD-005</td>
+                    <td>Zoe</td>
+                    <td>前端开发</td>
+                    <td>E厂</td>
+                    <td><span class="status-tag orange">待确认</span></td>
+                    <td>2026-06-21</td>
+                    <td>
+                      <div class="action-group">
+                        <button class="btn btn-ghost btn-sm">查看详情</button>
+                        <button class="btn btn-primary btn-sm">审核</button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>ORD-006</td>
+                    <td>Lily</td>
+                    <td>UI设计</td>
+                    <td>F厂</td>
+                    <td><span class="status-tag red">已结束</span></td>
+                    <td>2026-06-15</td>
+                    <td><div class="action-group"><button class="btn btn-ghost btn-sm">查看详情</button></div></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 辅导工单 -->
+      <div id="orders-tutoring" class="tab-content">
+        <div class="card">
+          <div class="card-body">
+            <div class="table-wrapper">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>工单编号</th>
+                    <th>学员</th>
+                    <th>需求类型</th>
+                    <th>匹配导师</th>
+                    <th>状态</th>
+                    <th>操作</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>TKT-001</td>
+                    <td>Emma</td>
+                    <td>简历优化</td>
+                    <td>Frank Zhao</td>
+                    <td><span class="status-tag gray">待分配</span></td>
+                    <td><div class="action-group"><button class="btn btn-primary btn-sm">分配导师</button></div></td>
+                  </tr>
+                  <tr>
+                    <td>TKT-002</td>
+                    <td>Zoe</td>
+                    <td>模拟面试</td>
+                    <td>Frank Zhao</td>
+                    <td><span class="status-tag blue">已分配</span></td>
+                    <td><div class="action-group"><button class="btn btn-primary btn-sm">确认约课</button></div></td>
+                  </tr>
+                  <tr>
+                    <td>TKT-003</td>
+                    <td>Tommy</td>
+                    <td>技能辅导</td>
+                    <td>Grace Huang</td>
+                    <td><span class="status-tag blue">进行中</span></td>
+                    <td><div class="action-group"><button class="btn btn-outline btn-sm">记录反馈</button></div></td>
+                  </tr>
+                  <tr>
+                    <td>TKT-004</td>
+                    <td>Lily</td>
+                    <td>职业咨询</td>
+                    <td>Henry Wu</td>
+                    <td><span class="status-tag green">已完成</span></td>
+                    <td><div class="action-group"><button class="btn btn-ghost btn-sm">查看详情</button></div></td>
+                  </tr>
+                  <tr>
+                    <td>TKT-005</td>
+                    <td>Mike</td>
+                    <td>简历优化</td>
+                    <td>Ivy Chen</td>
+                    <td><span class="status-tag gray">待分配</span></td>
+                    <td><div class="action-group"><button class="btn btn-primary btn-sm">分配导师</button></div></td>
+                  </tr>
+                  <tr>
+                    <td>TKT-006</td>
+                    <td>Nancy</td>
+                    <td>模拟面试</td>
+                    <td>Frank Zhao</td>
+                    <td><span class="status-tag blue">已分配</span></td>
+                    <td><div class="action-group"><button class="btn btn-primary btn-sm">确认约课</button></div></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== 5. 资源库 ========== -->
+    <div id="page-resources" class="page-content">
+      <div class="page-header">
+        <h1 class="page-title">资源库管理</h1>
+      </div>
+      <!-- Tab切换 -->
+      <div class="tabs" style="margin-top:24px;">
+        <div class="tab-item active" onclick="switchTab(this, 'resources-enterprise')">企业内推资源库</div>
+        <div class="tab-item" onclick="switchTab(this, 'resources-tutor')">导师辅导资源库</div>
+      </div>
+      <!-- 企业资源 -->
+      <div id="resources-enterprise" class="tab-content active">
+        <div class="card">
+          <div class="card-body">
+            <div class="table-wrapper">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>企业名称</th>
+                    <th>岗位</th>
+                    <th>地区</th>
+                    <th>招聘状态</th>
+                    <th>剩余名额</th>
+                    <th>渠道联系人</th>
+                    <th>更新时间</th>
+                    <th>操作</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>A厂</strong></td>
+                    <td>高级前端工程师</td>
+                    <td>San Francisco</td>
+                    <td><span class="status-tag green">招聘中</span></td>
+                    <td>3</td>
+                    <td>Lisa Wang</td>
+                    <td>2026-06-18</td>
+                    <td>
+                      <div class="action-group">
+                        <button class="btn btn-ghost btn-sm">查看</button>
+                        <button class="btn btn-outline btn-sm">更新名额</button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><strong>B厂</strong></td>
+                    <td>Java后端开发</td>
+                    <td>New York</td>
+                    <td><span class="status-tag green">招聘中</span></td>
+                    <td>5</td>
+                    <td>Mark Chen</td>
+                    <td>2026-06-17</td>
+                    <td>
+                      <div class="action-group">
+                        <button class="btn btn-ghost btn-sm">查看</button>
+                        <button class="btn btn-outline btn-sm">更新名额</button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><strong>C厂</strong></td>
+                    <td>数据分析师</td>
+                    <td>Chicago</td>
+                    <td><span class="status-tag green">招聘中</span></td>
+                    <td>2</td>
+                    <td>Nancy Li</td>
+                    <td>2026-06-16</td>
+                    <td>
+                      <div class="action-group">
+                        <button class="btn btn-ghost btn-sm">查看</button>
+                        <button class="btn btn-outline btn-sm">更新名额</button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><strong>D厂</strong></td>
+                    <td>产品经理</td>
+                    <td>Seattle</td>
+                    <td><span class="status-tag orange">暂停</span></td>
+                    <td>0</td>
+                    <td>Tom Zhang</td>
+                    <td>2026-06-15</td>
+                    <td>
+                      <div class="action-group">
+                        <button class="btn btn-ghost btn-sm">查看</button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><strong>E厂</strong></td>
+                    <td>前端开发工程师</td>
+                    <td>Toronto</td>
+                    <td><span class="status-tag green">招聘中</span></td>
+                    <td>4</td>
+                    <td>Alice Wu</td>
+                    <td>2026-06-19</td>
+                    <td>
+                      <div class="action-group">
+                        <button class="btn btn-ghost btn-sm">查看</button>
+                        <button class="btn btn-outline btn-sm">更新名额</button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><strong>F厂</strong></td>
+                    <td>数据工程师</td>
+                    <td>Boston</td>
+                    <td><span class="status-tag red">急招</span></td>
+                    <td>6</td>
+                    <td>Jack Liu</td>
+                    <td>2026-06-20</td>
+                    <td>
+                      <div class="action-group">
+                        <button class="btn btn-ghost btn-sm">查看</button>
+                        <button class="btn btn-outline btn-sm">更新名额</button>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 导师资源 -->
+      <div id="resources-tutor" class="tab-content">
+        <div class="card">
+          <div class="card-body">
+            <div class="table-wrapper">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>导师姓名</th>
+                    <th>所在公司</th>
+                    <th>行业方向</th>
+                    <th>擅长岗位</th>
+                    <th>服务类型</th>
+                    <th>可约时间</th>
+                    <th>合作状态</th>
+                    <th>操作</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Frank Zhao</strong></td>
+                    <td>A厂</td>
+                    <td>互联网</td>
+                    <td>前端开发</td>
+                    <td>模拟面试/简历优化</td>
+                    <td><span class="status-tag green">本周可约</span></td>
+                    <td><span class="status-tag green">合作中</span></td>
+                    <td>
+                      <div class="action-group">
+                        <button class="btn btn-primary btn-sm">安排约课</button>
+                        <button class="btn btn-ghost btn-sm">查看</button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><strong>Grace Huang</strong></td>
+                    <td>B厂</td>
+                    <td>金融科技</td>
+                    <td>Java后端</td>
+                    <td>技能辅导/职业咨询</td>
+                    <td><span class="status-tag green">下周可约</span></td>
+                    <td><span class="status-tag green">合作中</span></td>
+                    <td>
+                      <div class="action-group">
+                        <button class="btn btn-primary btn-sm">安排约课</button>
+                        <button class="btn btn-ghost btn-sm">查看</button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><strong>Henry Wu</strong></td>
+                    <td>C厂</td>
+                    <td>科技</td>
+                    <td>数据分析</td>
+                    <td>模拟面试/职业咨询</td>
+                    <td><span class="status-tag green">本月可约</span></td>
+                    <td><span class="status-tag green">合作中</span></td>
+                    <td>
+                      <div class="action-group">
+                        <button class="btn btn-primary btn-sm">安排约课</button>
+                        <button class="btn btn-ghost btn-sm">查看</button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><strong>Ivy Chen</strong></td>
+                    <td>D厂</td>
+                    <td>互联网</td>
+                    <td>产品经理</td>
+                    <td>简历优化/职业咨询</td>
+                    <td><span class="status-tag green">本周可约</span></td>
+                    <td><span class="status-tag orange">暂停</span></td>
+                    <td>
+                      <div class="action-group">
+                        <button class="btn btn-ghost btn-sm">查看</button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><strong>David Liu</strong></td>
+                    <td>E厂</td>
+                    <td>科技</td>
+                    <td>UI设计</td>
+                    <td>模拟面试/简历优化</td>
+                    <td><span class="status-tag green">下周可约</span></td>
+                    <td><span class="status-tag green">合作中</span></td>
+                    <td>
+                      <div class="action-group">
+                        <button class="btn btn-primary btn-sm">安排约课</button>
+                        <button class="btn btn-ghost btn-sm">查看</button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><strong>Sarah Kim</strong></td>
+                    <td>F厂</td>
+                    <td>金融科技</td>
+                    <td>数据工程</td>
+                    <td>技能辅导/职业咨询</td>
+                    <td><span class="status-tag green">本月可约</span></td>
+                    <td><span class="status-tag green">合作中</span></td>
+                    <td>
+                      <div class="action-group">
+                        <button class="btn btn-primary btn-sm">安排约课</button>
+                        <button class="btn btn-ghost btn-sm">查看</button>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- ===== AI分析弹窗（右侧滑出面板） ===== -->
+<div class="ai-panel-overlay" id="aiPanelOverlay" onclick="closeAIPanel()"></div>
+<div class="ai-panel" id="aiPanel">
+  <div class="ai-panel-header">
+    <div class="ai-panel-title">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+      AI智能匹配分析
+    </div>
+    <button class="ai-panel-close" onclick="closeAIPanel()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <div class="ai-panel-body">
+    <iframe src="https://cloud.dify.ai/explore/installed/7c7b683d-47b4-4640-a45c-6ba20e281418" allow="microphone"></iframe>
+  </div>
+</div>
+
+<script>
+/**
+ * 环球联才服务内部管理平台 - 交互逻辑
+ */
+
+/* ===== 登录处理 ===== */
+function handleLogin(e) {
+  e.preventDefault();
+  document.getElementById('loginPage').style.display = 'none';
+  document.getElementById('mainApp').style.display = 'block';
+}
+
+/* ===== 页面切换 ===== */
+function switchPage(pageId, navEl) {
+  // 移除所有导航高亮
+  document.querySelectorAll('.nav-item').forEach(function(item) {
+    item.classList.remove('active');
+  });
+  // 设置当前导航高亮
+  navEl.classList.add('active');
+
+  // 隐藏所有页面内容
+  document.querySelectorAll('.page-content').forEach(function(page) {
+    page.classList.remove('active');
+  });
+  // 显示目标页面
+  var targetPage = document.getElementById('page-' + pageId);
+  if (targetPage) {
+    targetPage.classList.add('active');
+    // 添加淡入动画
+    targetPage.classList.remove('fade-in');
+    void targetPage.offsetWidth; // 触发重排以重启动画
+    targetPage.classList.add('fade-in');
+  }
+}
+
+/* ===== Tab切换（通用） ===== */
+function switchTab(tabEl, contentId) {
+  // 获取同级的所有tab
+  var tabs = tabEl.parentElement.querySelectorAll('.tab-item');
+  tabs.forEach(function(t) {
+    t.classList.remove('active');
+  });
+  tabEl.classList.add('active');
+
+  // 获取同级的所有tab内容
+  var container = tabEl.parentElement.parentElement;
+  var contents = container.querySelectorAll('.tab-content');
+  contents.forEach(function(c) {
+    c.classList.remove('active');
+  });
+  var target = document.getElementById(contentId);
+  if (target) {
+    target.classList.add('active');
+  }
+}
+
+/* ===== AI分析面板 ===== */
+function openAIPanel() {
+  document.getElementById('aiPanelOverlay').classList.add('show');
+  document.getElementById('aiPanel').classList.add('show');
+}
+
+function closeAIPanel() {
+  document.getElementById('aiPanel').classList.remove('show');
+  setTimeout(function() {
+    document.getElementById('aiPanelOverlay').classList.remove('show');
+  }, 350);
+}
+</script>
+</body>
+</html>
