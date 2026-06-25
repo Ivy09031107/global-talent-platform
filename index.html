@@ -1202,6 +1202,82 @@ body {
   font-size: 15px;
 }
 
+/* ===== 泳道流程图 ===== */
+.swimlane-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.swimlane {
+  display: flex;
+  align-items: stretch;
+  border-bottom: 1px solid var(--gray-200);
+}
+.swimlane:last-child {
+  border-bottom: none;
+}
+.swimlane-label {
+  width: 80px;
+  min-width: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 13px;
+  padding: 12px 8px;
+  border-right: 1px solid var(--gray-200);
+}
+.swimlane-body {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.fc-node {
+  display: inline-block;
+  padding: 8px 16px;
+  border-radius: var(--radius-md);
+  font-size: 13px;
+  white-space: nowrap;
+  background: var(--gray-50);
+  border: 1px solid var(--gray-200);
+  color: var(--gray-800);
+  text-align: center;
+}
+.fc-start {
+  background: var(--primary-light);
+  border-color: var(--primary);
+  color: var(--primary);
+  font-weight: 600;
+}
+.fc-end {
+  background: var(--success-light);
+  border-color: var(--success);
+  color: var(--success);
+  font-weight: 600;
+}
+.fc-action {
+  background: #F0FDF4;
+  border-color: #86EFAC;
+  color: #166534;
+}
+.fc-system {
+  background: #FFF7ED;
+  border-color: #FDBA74;
+  color: #9A3412;
+}
+.fc-external {
+  background: #FDF2F8;
+  border-color: #F9A8D4;
+  color: #9D174D;
+}
+.fc-arrow {
+  color: var(--gray-400);
+  font-size: 18px;
+  font-weight: 700;
+}
+
 /* ===== 状态流转标签 ===== */
 .status-flow-tag {
   display: inline-block;
@@ -1330,6 +1406,10 @@ body {
       <div class="nav-sub-item" data-page="doc-permission" onclick="switchPage('doc-permission', this)">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
         <span>角色权限矩阵</span>
+      </div>
+      <div class="nav-sub-item" data-page="doc-flowchart" onclick="switchPage('doc-flowchart', this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        <span>业务流程图</span>
       </div>
     </nav>
     <div class="sidebar-footer">
@@ -2540,6 +2620,152 @@ body {
     <iframe src="https://cloud.dify.ai/explore/installed/7c7b683d-47b4-4640-a45c-6ba20e281418" allow="microphone"></iframe>
   </div>
 </div>
+
+    <!-- ========== 9. 业务流程图 ========== -->
+    <div id="page-doc-flowchart" class="page-content">
+      <div class="page-header">
+        <h1 class="page-title">业务流程图</h1>
+        <p class="page-desc">核心业务：学员从注册到内推成功的完整流程</p>
+      </div>
+
+      <!-- 主流程图 -->
+      <div class="card" style="margin-top:20px;padding:32px;">
+        <div class="card-header"><span class="card-title">内推服务主流程</span></div>
+        <div class="card-body" style="overflow-x:auto;">
+          <div class="flowchart">
+            <!-- 泳道标题 -->
+            <div class="swimlane-container">
+              <div class="swimlane">
+                <div class="swimlane-label" style="background:#EFF6FF;color:#2563EB;">学员</div>
+                <div class="swimlane-body">
+                  <div class="fc-node fc-start">注册/签约</div>
+                  <div class="fc-arrow">→</div>
+                  <div class="fc-node">完善简历</div>
+                  <div class="fc-arrow">→</div>
+                  <div class="fc-node">确认目标岗位</div>
+                  <div class="fc-arrow">→</div>
+                  <div class="fc-node">参加面试</div>
+                  <div class="fc-arrow">→</div>
+                  <div class="fc-node fc-end">入职成功</div>
+                </div>
+              </div>
+              <div class="swimlane">
+                <div class="swimlane-label" style="background:#F0FDF4;color:#22C55E;">助教</div>
+                <div class="swimlane-body">
+                  <div class="fc-node fc-action">创建学员档案</div>
+                  <div class="fc-arrow">→</div>
+                  <div class="fc-node fc-action">简历优化指导</div>
+                  <div class="fc-arrow">→</div>
+                  <div class="fc-node fc-action">AI匹配分析</div>
+                  <div class="fc-arrow">→</div>
+                  <div class="fc-node fc-action">发起内推</div>
+                  <div class="fc-arrow">→</div>
+                  <div class="fc-node fc-action">面试跟进反馈</div>
+                </div>
+              </div>
+              <div class="swimlane">
+                <div class="swimlane-label" style="background:#FFF7ED;color:#F97316;">系统</div>
+                <div class="swimlane-body">
+                  <div class="fc-node fc-system">分配助教</div>
+                  <div class="fc-arrow">→</div>
+                  <div class="fc-node fc-system">简历状态更新</div>
+                  <div class="fc-arrow">→</div>
+                  <div class="fc-node fc-system">生成匹配报告</div>
+                  <div class="fc-arrow">→</div>
+                  <div class="fc-node fc-system">创建内推订单</div>
+                  <div class="fc-arrow">→</div>
+                  <div class="fc-node fc-system">订单状态流转</div>
+                </div>
+              </div>
+              <div class="swimlane">
+                <div class="swimlane-label" style="background:#FDF2F8;color:#EC4899;">企业</div>
+                <div class="swimlane-body">
+                  <div class="fc-node fc-external" style="opacity:0.3;">—</div>
+                  <div class="fc-arrow" style="opacity:0.3;">→</div>
+                  <div class="fc-node fc-external" style="opacity:0.3;">—</div>
+                  <div class="fc-arrow" style="opacity:0.3;">→</div>
+                  <div class="fc-node fc-external">接收内推</div>
+                  <div class="fc-arrow">→</div>
+                  <div class="fc-node fc-external">面试评估</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 辅导服务流程 -->
+      <div class="card" style="margin-top:16px;padding:32px;">
+        <div class="card-header"><span class="card-title">辅导服务流程</span></div>
+        <div class="card-body" style="overflow-x:auto;">
+          <div class="flowchart">
+            <div class="swimlane-container" style="max-width:900px;">
+              <div class="swimlane">
+                <div class="swimlane-label" style="background:#EFF6FF;color:#2563EB;">学员</div>
+                <div class="swimlane-body">
+                  <div class="fc-node">提交辅导需求</div>
+                  <div class="fc-arrow">→</div>
+                  <div class="fc-node">确认导师</div>
+                  <div class="fc-arrow">→</div>
+                  <div class="fc-node">参加辅导</div>
+                  <div class="fc-arrow">→</div>
+                  <div class="fc-node fc-end">完成辅导</div>
+                </div>
+              </div>
+              <div class="swimlane">
+                <div class="swimlane-label" style="background:#F0FDF4;color:#22C55E;">助教</div>
+                <div class="swimlane-body">
+                  <div class="fc-node fc-action">审核需求</div>
+                  <div class="fc-arrow">→</div>
+                  <div class="fc-node fc-action">分配导师</div>
+                  <div class="fc-arrow">→</div>
+                  <div class="fc-node fc-action">记录反馈</div>
+                  <div class="fc-arrow" style="opacity:0.3;">→</div>
+                  <div class="fc-node fc-action" style="opacity:0.3;">—</div>
+                </div>
+              </div>
+              <div class="swimlane">
+                <div class="swimlane-label" style="background:#FEF3C7;color:#D97706;">导师</div>
+                <div class="swimlane-body">
+                  <div class="fc-node fc-external" style="opacity:0.3;">—</div>
+                  <div class="fc-arrow" style="opacity:0.3;">→</div>
+                  <div class="fc-node fc-external">确认约课</div>
+                  <div class="fc-arrow">→</div>
+                  <div class="fc-node fc-external">执行辅导</div>
+                  <div class="fc-arrow">→</div>
+                  <div class="fc-node fc-external">提交辅导报告</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 图例 -->
+      <div class="card" style="margin-top:16px;padding:24px;">
+        <div class="card-header"><span class="card-title">图例说明</span></div>
+        <div class="card-body">
+          <div style="display:flex;gap:24px;flex-wrap:wrap;">
+            <div style="display:flex;align-items:center;gap:8px;">
+              <div class="fc-start" style="padding:4px 12px;border-radius:6px;font-size:12px;">开始/结束</div>
+              <span style="color:var(--gray-500);font-size:12px;">流程起止节点</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;">
+              <div class="fc-action" style="padding:4px 12px;border-radius:6px;font-size:12px;">操作</div>
+              <span style="color:var(--gray-500);font-size:12px;">助教手动操作</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;">
+              <div class="fc-system" style="padding:4px 12px;border-radius:6px;font-size:12px;">系统</div>
+              <span style="color:var(--gray-500);font-size:12px;">系统自动处理</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;">
+              <div class="fc-external" style="padding:4px 12px;border-radius:6px;font-size:12px;">外部</div>
+              <span style="color:var(--gray-500);font-size:12px;">外部角色操作</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
 <script>
 /**
