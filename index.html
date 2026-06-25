@@ -1202,80 +1202,54 @@ body {
   font-size: 15px;
 }
 
-/* ===== 泳道流程图 ===== */
-.swimlane-container {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
+/* ===== 泳道表格 ===== */
+.swimlane-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
 }
-.swimlane {
-  display: flex;
-  align-items: stretch;
-  border-bottom: 1px solid var(--gray-200);
-}
-.swimlane:last-child {
-  border-bottom: none;
-}
-.swimlane-label {
-  width: 80px;
-  min-width: 80px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.sl-head {
+  background: var(--gray-800);
+  color: var(--white);
   font-weight: 600;
-  font-size: 13px;
-  padding: 12px 8px;
-  border-right: 1px solid var(--gray-200);
+  padding: 10px 16px;
+  text-align: center;
+  width: 25%;
+  border: 1px solid var(--gray-300);
 }
-.swimlane-body {
-  display: flex;
-  align-items: center;
-  padding: 12px 16px;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-.fc-node {
-  display: inline-block;
-  padding: 8px 16px;
-  border-radius: var(--radius-md);
-  font-size: 13px;
-  white-space: nowrap;
-  background: var(--gray-50);
+.sl-cell {
+  padding: 10px 12px;
   border: 1px solid var(--gray-200);
-  color: var(--gray-800);
+  vertical-align: middle;
+}
+.sl-node {
+  display: inline-block;
+  padding: 6px 14px;
+  border-radius: var(--radius-sm);
+  background: var(--white);
+  border: 1px solid var(--gray-300);
+  color: var(--gray-700);
+  font-size: 13px;
   text-align: center;
 }
-.fc-start {
+.sl-start {
   background: var(--primary-light);
   border-color: var(--primary);
   color: var(--primary);
   font-weight: 600;
 }
-.fc-end {
+.sl-end {
   background: var(--success-light);
   border-color: var(--success);
   color: var(--success);
   font-weight: 600;
 }
-.fc-action {
-  background: #F0FDF4;
-  border-color: #86EFAC;
-  color: #166534;
-}
-.fc-system {
-  background: #FFF7ED;
-  border-color: #FDBA74;
-  color: #9A3412;
-}
-.fc-external {
-  background: #FDF2F8;
-  border-color: #F9A8D4;
-  color: #9D174D;
-}
-.fc-arrow {
-  color: var(--gray-400);
-  font-size: 18px;
-  font-weight: 700;
+.sl-sys {
+  background: var(--gray-50);
+  border-style: dashed;
+  border-color: var(--gray-400);
+  color: var(--gray-500);
+  font-style: italic;
 }
 
 /* ===== 状态流转标签 ===== */
@@ -2628,141 +2602,125 @@ body {
         <p class="page-desc">核心业务：学员从注册到内推成功的完整流程</p>
       </div>
 
-      <!-- 主流程图 -->
-      <div class="card" style="margin-top:20px;padding:32px;">
-        <div class="card-header"><span class="card-title">内推服务主流程</span></div>
-        <div class="card-body" style="overflow-x:auto;">
-          <div class="flowchart">
-            <!-- 泳道标题 -->
-            <div class="swimlane-container">
-              <div class="swimlane">
-                <div class="swimlane-label" style="background:#EFF6FF;color:#2563EB;">学员</div>
-                <div class="swimlane-body">
-                  <div class="fc-node fc-start">注册/签约</div>
-                  <div class="fc-arrow">→</div>
-                  <div class="fc-node">完善简历</div>
-                  <div class="fc-arrow">→</div>
-                  <div class="fc-node">确认目标岗位</div>
-                  <div class="fc-arrow">→</div>
-                  <div class="fc-node">参加面试</div>
-                  <div class="fc-arrow">→</div>
-                  <div class="fc-node fc-end">入职成功</div>
-                </div>
-              </div>
-              <div class="swimlane">
-                <div class="swimlane-label" style="background:#F0FDF4;color:#22C55E;">助教</div>
-                <div class="swimlane-body">
-                  <div class="fc-node fc-action">创建学员档案</div>
-                  <div class="fc-arrow">→</div>
-                  <div class="fc-node fc-action">简历优化指导</div>
-                  <div class="fc-arrow">→</div>
-                  <div class="fc-node fc-action">AI匹配分析</div>
-                  <div class="fc-arrow">→</div>
-                  <div class="fc-node fc-action">发起内推</div>
-                  <div class="fc-arrow">→</div>
-                  <div class="fc-node fc-action">面试跟进反馈</div>
-                </div>
-              </div>
-              <div class="swimlane">
-                <div class="swimlane-label" style="background:#FFF7ED;color:#F97316;">系统</div>
-                <div class="swimlane-body">
-                  <div class="fc-node fc-system">分配助教</div>
-                  <div class="fc-arrow">→</div>
-                  <div class="fc-node fc-system">简历状态更新</div>
-                  <div class="fc-arrow">→</div>
-                  <div class="fc-node fc-system">生成匹配报告</div>
-                  <div class="fc-arrow">→</div>
-                  <div class="fc-node fc-system">创建内推订单</div>
-                  <div class="fc-arrow">→</div>
-                  <div class="fc-node fc-system">订单状态流转</div>
-                </div>
-              </div>
-              <div class="swimlane">
-                <div class="swimlane-label" style="background:#FDF2F8;color:#EC4899;">企业</div>
-                <div class="swimlane-body">
-                  <div class="fc-node fc-external" style="opacity:0.3;">—</div>
-                  <div class="fc-arrow" style="opacity:0.3;">→</div>
-                  <div class="fc-node fc-external" style="opacity:0.3;">—</div>
-                  <div class="fc-arrow" style="opacity:0.3;">→</div>
-                  <div class="fc-node fc-external">接收内推</div>
-                  <div class="fc-arrow">→</div>
-                  <div class="fc-node fc-external">面试评估</div>
-                </div>
-              </div>
-            </div>
-          </div>
+      <!-- 内推服务主流程 - 标准泳道图 -->
+      <div class="card" style="margin-top:20px;padding:0;overflow:hidden;">
+        <div class="card-header" style="padding:16px 24px;"><span class="card-title">内推服务主流程</span></div>
+        <div style="overflow-x:auto;">
+          <table class="swimlane-table">
+            <thead>
+              <tr>
+                <th class="sl-head">学员</th>
+                <th class="sl-head">助教</th>
+                <th class="sl-head">系统</th>
+                <th class="sl-head">企业</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="sl-cell"><div class="sl-node sl-start">注册签约</div></td>
+                <td class="sl-cell"><div class="sl-node">创建学员档案</div></td>
+                <td class="sl-cell"><div class="sl-node sl-sys">分配助教</div></td>
+                <td class="sl-cell" rowspan="6" style="background:var(--gray-50);vertical-align:middle;">
+                  <div style="text-align:center;color:var(--gray-400);font-size:12px;">等待阶段</div>
+                </td>
+              </tr>
+              <tr>
+                <td class="sl-cell"><div class="sl-node">完善简历</div></td>
+                <td class="sl-cell"><div class="sl-node">简历优化指导</div></td>
+                <td class="sl-cell"><div class="sl-node sl-sys">简历状态更新</div></td>
+              </tr>
+              <tr>
+                <td class="sl-cell"><div class="sl-node">确认目标岗位</div></td>
+                <td class="sl-cell"><div class="sl-node">发起岗位匹配</div></td>
+                <td class="sl-cell"><div class="sl-node sl-sys">AI生成匹配报告</div></td>
+              </tr>
+              <tr>
+                <td class="sl-cell"><div class="sl-node">确认内推</div></td>
+                <td class="sl-cell"><div class="sl-node">发起内推</div></td>
+                <td class="sl-cell"><div class="sl-node sl-sys">创建内推订单</div></td>
+              </tr>
+              <tr>
+                <td class="sl-cell"><div class="sl-node">参加面试</div></td>
+                <td class="sl-cell"><div class="sl-node">面试跟进</div></td>
+                <td class="sl-cell"><div class="sl-node sl-sys">订单状态流转</div></td>
+                <td class="sl-cell"><div class="sl-node">面试评估</div></td>
+              </tr>
+              <tr>
+                <td class="sl-cell"><div class="sl-node sl-end">入职成功</div></td>
+                <td class="sl-cell"><div class="sl-node">归档关闭</div></td>
+                <td class="sl-cell"><div class="sl-node sl-sys">订单关闭</div></td>
+                <td class="sl-cell"><div class="sl-node">发放offer</div></td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
 
       <!-- 辅导服务流程 -->
-      <div class="card" style="margin-top:16px;padding:32px;">
-        <div class="card-header"><span class="card-title">辅导服务流程</span></div>
-        <div class="card-body" style="overflow-x:auto;">
-          <div class="flowchart">
-            <div class="swimlane-container" style="max-width:900px;">
-              <div class="swimlane">
-                <div class="swimlane-label" style="background:#EFF6FF;color:#2563EB;">学员</div>
-                <div class="swimlane-body">
-                  <div class="fc-node">提交辅导需求</div>
-                  <div class="fc-arrow">→</div>
-                  <div class="fc-node">确认导师</div>
-                  <div class="fc-arrow">→</div>
-                  <div class="fc-node">参加辅导</div>
-                  <div class="fc-arrow">→</div>
-                  <div class="fc-node fc-end">完成辅导</div>
-                </div>
-              </div>
-              <div class="swimlane">
-                <div class="swimlane-label" style="background:#F0FDF4;color:#22C55E;">助教</div>
-                <div class="swimlane-body">
-                  <div class="fc-node fc-action">审核需求</div>
-                  <div class="fc-arrow">→</div>
-                  <div class="fc-node fc-action">分配导师</div>
-                  <div class="fc-arrow">→</div>
-                  <div class="fc-node fc-action">记录反馈</div>
-                  <div class="fc-arrow" style="opacity:0.3;">→</div>
-                  <div class="fc-node fc-action" style="opacity:0.3;">—</div>
-                </div>
-              </div>
-              <div class="swimlane">
-                <div class="swimlane-label" style="background:#FEF3C7;color:#D97706;">导师</div>
-                <div class="swimlane-body">
-                  <div class="fc-node fc-external" style="opacity:0.3;">—</div>
-                  <div class="fc-arrow" style="opacity:0.3;">→</div>
-                  <div class="fc-node fc-external">确认约课</div>
-                  <div class="fc-arrow">→</div>
-                  <div class="fc-node fc-external">执行辅导</div>
-                  <div class="fc-arrow">→</div>
-                  <div class="fc-node fc-external">提交辅导报告</div>
-                </div>
-              </div>
-            </div>
-          </div>
+      <div class="card" style="margin-top:16px;padding:0;overflow:hidden;">
+        <div class="card-header" style="padding:16px 24px;"><span class="card-title">辅导服务流程</span></div>
+        <div style="overflow-x:auto;">
+          <table class="swimlane-table">
+            <thead>
+              <tr>
+                <th class="sl-head">学员</th>
+                <th class="sl-head">助教</th>
+                <th class="sl-head">系统</th>
+                <th class="sl-head">导师</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="sl-cell"><div class="sl-node">提交辅导需求</div></td>
+                <td class="sl-cell"><div class="sl-node">审核需求</div></td>
+                <td class="sl-cell"><div class="sl-node sl-sys">创建辅导工单</div></td>
+                <td class="sl-cell" rowspan="4" style="background:var(--gray-50);vertical-align:middle;">
+                  <div style="text-align:center;color:var(--gray-400);font-size:12px;">待分配</div>
+                </td>
+              </tr>
+              <tr>
+                <td class="sl-cell"><div class="sl-node">确认导师</div></td>
+                <td class="sl-cell"><div class="sl-node">分配导师</div></td>
+                <td class="sl-cell"><div class="sl-node sl-sys">工单状态→已分配</div></td>
+              </tr>
+              <tr>
+                <td class="sl-cell"><div class="sl-node">确认约课时间</div></td>
+                <td class="sl-cell"><div class="sl-node">协调时间</div></td>
+                <td class="sl-cell"><div class="sl-node sl-sys">工单状态→进行中</div></td>
+                <td class="sl-cell"><div class="sl-node">确认约课</div></td>
+              </tr>
+              <tr>
+                <td class="sl-cell"><div class="sl-node">参加辅导</div></td>
+                <td class="sl-cell"><div class="sl-node">记录反馈</div></td>
+                <td class="sl-cell"><div class="sl-node sl-sys">工单状态→已完成</div></td>
+                <td class="sl-cell"><div class="sl-node">执行辅导</div></td>
+              </tr>
+              <tr>
+                <td class="sl-cell"><div class="sl-node sl-end">完成辅导</div></td>
+                <td class="sl-cell"><div class="sl-node">满意度回访</div></td>
+                <td class="sl-cell"><div class="sl-node sl-sys">归档</div></td>
+                <td class="sl-cell"><div class="sl-node">提交辅导报告</div></td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
 
-      <!-- 图例 -->
-      <div class="card" style="margin-top:16px;padding:24px;">
-        <div class="card-header"><span class="card-title">图例说明</span></div>
-        <div class="card-body">
-          <div style="display:flex;gap:24px;flex-wrap:wrap;">
-            <div style="display:flex;align-items:center;gap:8px;">
-              <div class="fc-start" style="padding:4px 12px;border-radius:6px;font-size:12px;">开始/结束</div>
-              <span style="color:var(--gray-500);font-size:12px;">流程起止节点</span>
-            </div>
-            <div style="display:flex;align-items:center;gap:8px;">
-              <div class="fc-action" style="padding:4px 12px;border-radius:6px;font-size:12px;">操作</div>
-              <span style="color:var(--gray-500);font-size:12px;">助教手动操作</span>
-            </div>
-            <div style="display:flex;align-items:center;gap:8px;">
-              <div class="fc-system" style="padding:4px 12px;border-radius:6px;font-size:12px;">系统</div>
-              <span style="color:var(--gray-500);font-size:12px;">系统自动处理</span>
-            </div>
-            <div style="display:flex;align-items:center;gap:8px;">
-              <div class="fc-external" style="padding:4px 12px;border-radius:6px;font-size:12px;">外部</div>
-              <span style="color:var(--gray-500);font-size:12px;">外部角色操作</span>
-            </div>
-          </div>
+      <!-- 异常流程 -->
+      <div class="card" style="margin-top:16px;padding:0;overflow:hidden;">
+        <div class="card-header" style="padding:16px 24px;"><span class="card-title">异常流程说明</span></div>
+        <div class="card-body" style="padding:20px 24px;">
+          <table class="doc-table" style="max-width:700px;">
+            <thead>
+              <tr><th>异常场景</th><th>触发条件</th><th>处理方式</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>简历不匹配</td><td>AI匹配评分 < 60分</td><td>助教建议学员调整方向或暂不内推</td></tr>
+              <tr><td>内推被拒</td><td>企业反馈不合适</td><td>助教匹配备选岗位，重新发起</td></tr>
+              <tr><td>导师拒绝</td><td>导师时间冲突</td><td>系统自动回到"待分配"状态</td></tr>
+              <tr><td>学员放弃</td><td>学员主动终止服务</td><td>订单/工单标记"已结束"，归档</td></tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
